@@ -1,4 +1,5 @@
 export type DiceStyle =
+  | "BLADE_RUNNER"
   | "GALAXY"
   | "GEMSTONE"
   | "GLASS"

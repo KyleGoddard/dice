@@ -8,6 +8,11 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 
 import { getCombinedDiceValue } from "../helpers/getCombinedDiceValue";
+import {
+  BladeRunnerResult,
+  getBladeRunnerResult,
+  isBladeRunnerRoll,
+} from "../helpers/bladeRunnerSuccesses";
 import { DiceRoll } from "../types/DiceRoll";
 import { Die, isDie } from "../types/Die";
 import { Dice, isDice } from "../types/Dice";
@@ -24,9 +29,20 @@ export function DiceResults({
   expanded: boolean;
   onExpand: (expand: boolean) => void;
 }) {
+  const isBladeRunner = useMemo(
+    () => isBladeRunnerRoll(diceRoll),
+    [diceRoll]
+  );
+
   const finalValue = useMemo(() => {
+    if (isBladeRunner) return null;
     return getCombinedDiceValue(diceRoll, rollValues);
-  }, [diceRoll, rollValues]);
+  }, [diceRoll, rollValues, isBladeRunner]);
+
+  const brResult = useMemo(() => {
+    if (!isBladeRunner) return null;
+    return getBladeRunnerResult(diceRoll, rollValues);
+  }, [diceRoll, rollValues, isBladeRunner]);
 
   return (
     <Stack alignItems="center" maxHeight="calc(100vh - 100px)">
@@ -39,9 +55,13 @@ export function DiceResults({
           onClick={() => onExpand(!expanded)}
           color="inherit"
         >
-          <Typography variant="h4" color="white">
-            {finalValue}
-          </Typography>
+          {brResult ? (
+            <BladeRunnerSummary result={brResult} />
+          ) : (
+            <Typography variant="h4" color="white">
+              {finalValue}
+            </Typography>
+          )}
         </Button>
       </Tooltip>
       <Grow
@@ -54,6 +74,31 @@ export function DiceResults({
           <DiceResultsExpanded diceRoll={diceRoll} rollValues={rollValues} />
         </Stack>
       </Grow>
+    </Stack>
+  );
+}
+
+function BladeRunnerSummary({ result }: { result: BladeRunnerResult }) {
+  const successColor =
+    result.successes > 0 ? "success.main" : "error.main";
+  return (
+    <Stack alignItems="center" gap={0.25}>
+      <Typography variant="h4" color={successColor} fontFamily="monospace">
+        {result.successes}
+      </Typography>
+      <Typography variant="caption" color="white" lineHeight={1}>
+        {result.successes === 1 ? "success" : "successes"}
+      </Typography>
+      {result.isCritical && (
+        <Typography variant="caption" sx={{ color: "gold", lineHeight: 1 }}>
+          CRITICAL
+        </Typography>
+      )}
+      {result.hasOne && (
+        <Typography variant="caption" sx={{ color: "#ff9966", lineHeight: 1 }}>
+          HAZARD
+        </Typography>
+      )}
     </Stack>
   );
 }

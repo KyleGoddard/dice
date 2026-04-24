@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import { DiceStyle } from "../types/DiceStyle";
 import { DiceType } from "../types/DiceType";
 
+import * as bladeRunnerPreviews from "./blade-runner";
 import * as galaxyPreviews from "./galaxy";
 import * as gemstonePreviews from "./gemstone";
 import * as glassPreviews from "./glass";
@@ -13,6 +14,7 @@ import * as sunsetPreviews from "./sunset";
 import * as walnutPreviews from "./walnut";
 
 const previews: Record<DiceStyle, Record<DiceType, string>> = {
+  BLADE_RUNNER: bladeRunnerPreviews,
   GALAXY: galaxyPreviews,
   GEMSTONE: gemstonePreviews,
   GLASS: glassPreviews,
