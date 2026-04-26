@@ -4,25 +4,12 @@ import { DiceStyle } from "../types/DiceStyle";
 import { DiceType } from "../types/DiceType";
 
 import * as bladeRunnerPreviews from "./blade-runner";
-import * as galaxyPreviews from "./galaxy";
-import * as gemstonePreviews from "./gemstone";
 import * as glassPreviews from "./glass";
-import * as ironPreviews from "./iron";
-import * as nebulaPreviews from "./nebula";
-import * as sunrisePreviews from "./sunrise";
-import * as sunsetPreviews from "./sunset";
-import * as walnutPreviews from "./walnut";
+
 
 const previews: Record<DiceStyle, Record<DiceType, string>> = {
   BLADE_RUNNER: bladeRunnerPreviews,
-  GALAXY: galaxyPreviews,
-  GEMSTONE: gemstonePreviews,
   GLASS: glassPreviews,
-  IRON: ironPreviews,
-  NEBULA: nebulaPreviews,
-  SUNRISE: sunrisePreviews,
-  SUNSET: sunsetPreviews,
-  WALNUT: walnutPreviews,
 };
 
 interface PreviewImageProps {

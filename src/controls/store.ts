@@ -153,48 +153,16 @@ export function getDiceToRoll(
     const { style, type } = die;
     for (let i = 0; i < count; i++) {
       if (advantage === null) {
-        if (type === "D100") {
-          // Push a d100 and d10 when rolling a d100
-          dice.push({
-            dice: [
-              { id: generateDiceId(), style, type: "D100" },
-              { id: generateDiceId(), style, type: "D10" },
-            ],
-          });
-        } else {
-          dice.push({ id: generateDiceId(), style, type });
-        }
+        dice.push({ id: generateDiceId(), style, type });
       } else {
-        // Rolling with advantage or disadvantage
         const combination = advantage === "ADVANTAGE" ? "HIGHEST" : "LOWEST";
-        if (type === "D100") {
-          // Push 2 d100s and d10s
-          dice.push({
-            dice: [
-              {
-                dice: [
-                  { id: generateDiceId(), style, type: "D100" },
-                  { id: generateDiceId(), style, type: "D10" },
-                ],
-              },
-              {
-                dice: [
-                  { id: generateDiceId(), style, type: "D100" },
-                  { id: generateDiceId(), style, type: "D10" },
-                ],
-              },
-            ],
-            combination,
-          });
-        } else {
-          dice.push({
-            dice: [
-              { id: generateDiceId(), style, type },
-              { id: generateDiceId(), style, type },
-            ],
-            combination,
-          });
-        }
+        dice.push({
+          dice: [
+            { id: generateDiceId(), style, type },
+            { id: generateDiceId(), style, type },
+          ],
+          combination,
+        });
       }
     }
   }
