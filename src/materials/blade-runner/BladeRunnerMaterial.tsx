@@ -1,9 +1,9 @@
 import * as THREE from "three";
 import { useTexture } from "@react-three/drei";
 
-import albedo from "../glass/albedo.jpg";
-import normal from "../glass/normal.jpg";
-import mask from "../glass/mask.png";
+import albedo from "./albedo.jpg";
+import normal from "./normal.png";
+import mask from "./mask.png";
 import { gltfTexture } from "../../helpers/gltfTexture";
 
 const sheenColor = new THREE.Color("#ff6600");
